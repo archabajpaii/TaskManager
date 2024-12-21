@@ -21,6 +21,7 @@ function App() {
       <Route path='/reports' element={<Reports/>}/>
       <Route path='/settings' element={<Settings/>}/>
       <Route path='*' element={<Login/>}/>
+      
     </Routes>
    </BrowserRouter>
    </UserProvider>
