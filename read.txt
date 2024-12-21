@@ -1,0 +1,56 @@
+1. Functional Components
+Functional components are simple JavaScript functions that return JSX (HTML-like code). They are lightweight and don’t have their own this context like class components. For example, Profile and Settings are functional components. They are easy to write and allow us to use React hooks like useState.
+
+2. State Management (useState)
+The useState hook lets components store and manage data that can change over time. For example, const [userInfo, setUserInfo] = useState({...}) creates a userInfo state and provides a setUserInfo function to update it. React’s state is immutable, meaning we don’t directly modify it but create a new copy with updated values.
+
+3. Context API
+The Context API allows us to share data (like userInfo) across components without passing props manually. We create a context using createContext, wrap our app in a Provider, and access the shared data anywhere in the app using useContext. This avoids "prop drilling," where props need to be passed through multiple levels of components.
+
+4. Custom Hook (useUser)
+We created a custom hook, useUser, to simplify how components access the context. It uses the useContext hook internally and checks if the context is being used correctly. Custom hooks make it easier to reuse logic and keep our code clean.
+
+5. React Router
+React Router lets us navigate between pages like Login, Profile, and Settings without reloading the app. We define routes in App and use the useNavigate hook to move between pages programmatically, like redirecting to the dashboard after a successful login.
+
+6. Form Handling
+In forms, we use event handlers like handleChange to track user input. For example, the code setFormData({ ...formData, [name]: value }) updates specific fields in the form without changing the others. This works by copying the existing state (formData) and updating only the input field the user interacted with.
+
+7. State Immutability
+React’s state is immutable, meaning we cannot directly change it. Instead, we create a new version of the state with the updated values. For example, { ...formData, [name]: value } creates a new object by copying formData and updating only the field specified by [name].
+
+8. Error Handling in Context
+We added error handling in our useUser hook to ensure the context is used only within a UserProvider. If we try to use it outside the provider, it throws an error. This ensures our app behaves predictably and avoids runtime issues.
+
+9. Authentication Logic
+We hardcoded login credentials (username: admin, password: admin@123) for now. When the user logs in, their credentials are compared to these values. If they match, they are redirected to the dashboard; otherwise, an error message is shown.
+
+10. Global State for User Info
+We used the UserContext to store the userInfo state globally. Components like Profile and Settings subscribe to this context, so any changes in one component (like updating the username in Settings) are immediately reflected in the other (like Profile).
+
+11. Event Typing with TypeScript
+TypeScript helps us define types for events, like form inputs. For example, in handleChange, we used React.ChangeEvent<HTMLInputElement> to ensure the function only works with text input elements. This prevents errors and makes the code easier to understand.
+
+12. Shared State with Context
+Both Profile and Settings access the same userInfo state using UserContext. This eliminates the need to pass data through props. Changes made in Settings (like updating the username) automatically reflect in Profile because they are both connected to the same global state.
+
+13. Tailwind CSS
+We used Tailwind CSS for styling. It’s a utility-first CSS framework that lets us write styles directly in the class attribute. For example, className="flex items-center justify-center h-screen bg-slate-400" centers a div vertically and horizontally while giving it a background color.
+
+14. Navigation with useNavigate
+The useNavigate hook helps us redirect users after certain actions, like logging in. For example, after a successful login, we use navigate('/dashboard') to send the user to the dashboard page programmatically.
+
+15. TypeScript Type Definitions
+We defined custom types for the UserContext to ensure our state and functions are used correctly. For example:
+
+typescript
+Copy code
+type UserContextType = {
+  userInfo: { username: string; password: string };
+  setUserInfo: React.Dispatch<React.SetStateAction<{ username: string; password: string }>>;
+};
+This ensures that userInfo always has a username and password.
+
+16. Provider Wrapper
+The UserProvider wraps our app and makes the UserContext available to all components. It passes the userInfo and setUserInfo state to all subscribers (like Profile and Settings).
+
